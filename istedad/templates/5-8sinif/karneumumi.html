@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title></title>
+        
+        <link href="{% static 'css/cavabkarti.css' %}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% for student in students %}
+                <div style="margin-bottom:35px !important;" class="karne_umumi">
+                    <div class="vereqe_basliq">
+                        <span style="float: left">Sıra: {{forloop.counter}}</span>
+                        <span style="margin-left: 5%;"></span>
+                        <span style="float: right"> Bal: {{student.cem}}</span>
+                    </div>
+                    <div class="vereqe_body">
+                        <table class="karne">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div><img src="{% static 'images/logo1.png' %}" width="100"></div>
+                                        <div class="student_data"><strong>Ad:</strong> {{student.aad}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Soyad:</strong> {{student.soyad}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Ata Adı:</strong> {{student.ata_adi}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>İş №:</strong> {{student.is_no}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Sinif:</strong> {{student.sinif}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Tarix:</strong>{{tarix}}</div>
+                                    </td>
+                                    <td style=" padding: 2px 2px !important; border-right: 0px !important;">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Fənlər</strong></td>
+                                                    <td><strong>Cavablar</strong></td>
+                                                    <td><strong>Düz</strong></td>
+                                                    <td><strong>Səhv</strong></td>
+                                                    <td><strong>Bal</strong></td>
+                                                    <td><strong>Cəmi</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Azərbaycan dili</td>
+                                                    <td><img src="{% static '/images/key.png' %}"><code>{{student.d1_q|safe}}</code><br>
+                                                        <img src="{% static '/images/stu.png' %}"><code>{{student.f1_qq|safe}}</code>
+                                                    </td>
+                                                    <td>{{student.f1_d}}</td>
+                                                    <td>{{student.f1_s}}</td>
+                                                    <td>{{student.f1_c}}</td>
+                                                    <td rowspan=3>{{student.cem}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Riyaziyyat </td>
+                                                    <td><img src="{% static '/images/key.png' %}"><code>{{student.d2_q|safe}}</code><br>
+                                                        <img src="{% static '/images/stu.png' %}"><code>{{student.f2_qq|safe}}</code>
+                                                    </td>
+                                                    <td>{{student.f2_d}}</td>
+                                                    <td>{{student.f2_s}}</td>
+                                                    <td>{{student.f2_c}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>İngilis dili</td>
+                                                    <td><img src="{% static '/images/key.png' %}"><code>{{student.d3_q|safe}}</code><br>
+                                                        <img src="{% static '/images/stu.png' %}"><code>{{student.f3_qq|safe}}</code>
+                                                    </td>
+                                                    <td>{{student.f3_d}}</td>
+                                                    <td>{{student.f3_s}}</td>
+                                                    <td>{{student.f3_c}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="float:left;">
+                            <div style="margin-left:10px; display:inline-block;">
+                                <img style="padding-top:4px" src="{% static '/images/key.png' %}"> Düzgün cavablar
+                            </div>
+                            <div style="margin-left:10px; display:inline-block;">
+                                <img style="padding-top:4px" src="{% static '/images/stu.png' %}"> Şagirdin cavabları
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+        </div> 
+    </body>
+</html>

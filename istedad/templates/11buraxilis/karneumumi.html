@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jafar Sadigzade">
+    <title></title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/cavabkarti.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+            {% for student in students %}
+                <div style="height:350px !important;    width:1310px !important;" class="karne_umumi">
+                    <div class="vereqe_basliq">
+                        <span style="float: left">Tutduğu Yer: {{ forloop.counter }}</span>
+                        <span style="margin-left: 5%;">İmtahan nəticə vərəqi: Buraxılış sınağı: Sinif {{student.sinif}}</span>
+                        <span style="float: right"> Bal: {{student.cem}}</span>
+                    </div>
+                    <div class="vereqe_body">
+                        <table class="karne">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="student_data"><strong>Ad:</strong> {{student.aad}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Soyad:</strong> {{student.soyad}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>İş №:</strong> {{student.is_no}}  </div>
+                                        <br>
+                                        <div class="student_data"><strong>Sinif:</strong> {{student.sinif}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Məktəb:</strong> {{student.mekteb}} </div>
+                                        <br>
+                                        <div class="student_data"><strong>Rayon:</strong> {{student.rayon}} </div>
+                                    </td>
+                                    <td style=" padding: 2px 2px !important; border-right: 0 !important;">
+                                        <div>
+                                            <img style="margin-top:-20px; width:100px;" src={% static 'images/logo1.png' %}>
+                                        </div>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Fənlər</strong></td>
+                                                    <td><strong>Cavablar</strong></td>
+                                                    <td><strong>Qapalı Sual</strong></td>
+                                                    <td><strong>Kodlaşdırılan</strong></td>
+                                                    <td><strong>Açıq Sual</strong></td>
+                                                    <td><strong>Bal</strong></td>
+                                                    <td><strong>Cəmi</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ student.x_dil }}</td>
+                                                    <td>
+                                                        <img src="{% static '/images/key.png' %}">
+                                                        <code>
+                                                            <span class="cvb1">{{student.d1_q|slice:"0:3"}}</span>
+                                                            <span class="cvb1">4</span>
+                                                            <span class="cvb1">5</span>
+                                                            <span class="cvb1">6</span>
+                                                            <span class="cvb">{{student.d1_q|slice:"3:23"}}</span>
+                                                            <span class="cvb3" style="width: 150px !important;">Mətn sualları</span>
+                                                        </code><br>
+                                                        <img src="{% static '/images/stu.png' %}">
+                                                        <code>
+                                                            <span class="cvb1">{{student.f1_q|slice:"0:3"}}</span>
+                                                            <span class="cvb1">{{student.f1_a4}}</span>
+                                                            <span class="cvb1">{{student.f1_a5}}</span>
+                                                            <span class="cvb1">{{student.f1_a6}}</span>
+                                                            <span class="cvb">{{student.f1_q|slice:"3:23"}}</span>
+                                                            <span class="cvb1">{{student.f1_a27}}</span>
+                                                            <span class="cvb1">{{student.f1_a28}}</span>
+                                                            <span class="cvb1">{{student.f1_a29}}</span>
+                                                            <span class="cvb1">{{student.f1_a30}}</span>
+                                                        </code>
+                                                    </td>
+                                                    <td colspan="2" style="text-align: center;">{{student.f1_d_q}}</td>
+                                                    <td>{{student.f1_d_a}}</td>
+                                                    <td>{{ student.f1_cem }}</td>
+                                                    <td rowspan=3>{{student.cem}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Azərbaycan dili</td>
+                                                    <td>
+                                                        <img src="{% static '/images/key.png' %}">
+                                                        <code>
+                                                            <span class="cvb">{{student.d2_q|slice:"0:15"}}</span>
+                                                            <span class="cvb3" style="width: 187px !important;">1-ci mətn</span>
+                                                            <span class="cvb">{{student.d2_q|slice:"15:20"}}</span>
+                                                            <span class="cvb3" style="width: 187px !important;">2-ci mətn</span>
+                                                        </code><br>
+                                                        <img src="{% static '/images/stu.png' %}">
+                                                        <code>
+                                                            <span class="cvb">{{student.f2_q|slice:"0:15"}}</span>
+                                                            <span class="cvb1">{{student.f2_a46}}</span>
+                                                            <span class="cvb1">{{student.f2_a47}}</span>
+                                                            <span class="cvb1">{{student.f2_a48}}</span>
+                                                            <span class="cvb1">{{student.f2_a49}}</span>
+                                                            <span class="cvb1">{{student.f2_a50}}</span>
+                                                            <span class="cvb">{{student.f2_q|slice:"15:20"}}</span>
+                                                            <span class="cvb1">{{student.f2_a56}}</span>
+                                                            <span class="cvb1">{{student.f2_a57}}</span>
+                                                            <span class="cvb1">{{student.f2_a58}}</span>
+                                                            <span class="cvb1">{{student.f2_a59}}</span>
+                                                            <span class="cvb1">{{student.f2_a60}}</span>
+                                                        </code>
+                                                    </td>
+                                                    <td colspan="2" style="text-align: center;">{{student.f2_d_q}}</td>
+                                                    <td>{{student.f2_d_a}}</td>
+                                                    <td>{{ student.f2_cem }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Riyaziyyat</td>
+                                                    <td>
+                                                        <img src="{% static '/images/key.png' %}">
+                                                        <code>
+                                                            <span class="cvb">{{student.d3_q}}</span>
+                                                            <span class="cvb2">{{ student.d3_k|slice:":6"}}</span>
+                                                            <span class="cvb2">{{ student.d3_k|slice:"6:12"}}</span>
+                                                            <span class="cvb2">{{ student.d3_k|slice:"12:18"}}</span>
+                                                            <span class="cvb2">{{ student.d3_k|slice:"18:24"}}</span>
+                                                            <span class="cvb2">{{ student.d3_k|slice:"24:30"}}</span>
+                                                            <span class="cvb3" style="width: 265px !important;">Həlli tələb olunan tapşırıqlar</span>
+                                                        </code><br>
+                                                        <img src="{% static '/images/stu.png' %}">
+                                                        <code>
+                                                            <span class="cvb">{{student.f3_q}}</span>
+                                                            <span class="cvb2">{{ student.f3_k_a|slice:":6"}}</span>
+                                                            <span class="cvb2">{{ student.f3_k_a|slice:"6:12"}}</span>
+                                                            <span class="cvb2">{{ student.f3_k_a|slice:"12:18"}}</span>
+                                                            <span class="cvb2">{{ student.f3_k_a|slice:"18:24"}}</span>
+                                                            <span class="cvb2">{{ student.f3_k_a|slice:"24:30"}}</span>
+                                                            <span class="cvb1">{{ student.f3_a79 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a80 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a81 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a82 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a83 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a84 }}</span>
+                                                            <span class="cvb1">{{ student.f3_a85 }}</span>
+                                                        </code>
+                                                    </td>
+                                                    <td>{{student.f3_d_q}}</td>
+                                                    <td>{{student.f3_d_k}}</td>
+                                                    <td>{{student.f3_d_a}}</td>
+                                                    <td>{{student.f3_cem}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="float:left;">
+                            <div style="margin-left:10px; display:inline-block;">
+                                <img style="padding-top:4px" src="{% static '/images/key.png' %}"> Düzgün cavablar
+                            </div>
+                            <div style="margin-left:10px; display:inline-block;">
+                                <img style="padding-top:4px" src="{% static '/images/stu.png' %}"> Şagirdin cavabları
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+    </div><!-- son container -->
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{xeber.basliq}} {% endblock %}
+
+{% block content %}
+
+	<div id="fh5co-about">
+		<div class="container">
+			<h1>{{xeber.basliq}}</h1>
+			<h3>{{xeber.tarix}}</h3>
+			<img id="xeber" src="{{ xeber.sekil.url }}"/>
+			{{ xeber.aciqlama|safe }}
+		</div>	
+	</div>
+
+{% endblock %} 

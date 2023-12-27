@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Sınaqlar {% endblock %}
+
+{% block content %}
+
+    <div id="fh5co-gallery" class="fh5co-bg-section">
+        <div class="row text-center"><h2><span>Sınaqlar</span></h2></div>
+            {% for sinaq in sinaqs %}
+                {% if sinaq.is_active or user.is_authenticated %}
+
+                    <div class="row col-md-3 col-padded">
+                        <h2 class="text-center col-padded">{{ sinaq.sinaq_adi }}</h2><a href="{% url 'sinaq_details' sinaq.id %}" class="gallery" style="background-image: url({{ sinaq.sinaq_sekil.url }});" ></a>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+    </div>
+	
+{% endblock %}

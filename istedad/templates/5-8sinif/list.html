@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>JafarSadig V1.0</title>
+	<!-- CSS kodları -->
+	<style>
+		table {
+			margin: 0 auto;
+			font-size: large;
+			border: 1px solid black;
+		}
+
+		h1 {
+			text-align: center;
+			color: #006600;
+			font-size: xx-large;
+			font-family: 'Gill Sans', 'Gill Sans MT',
+			' Calibri', 'Trebuchet MS', 'sans-serif';
+		}
+
+		td {
+			background-color: #E4F5D4;
+			border: 1px solid black;
+		}
+
+		th,
+		td {
+			font-weight: bold;
+			border: 1px solid black;
+			padding: 10px;
+			text-align: center;
+		}
+
+		td {
+			font-weight: lighter;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<h1>{{students.0.sinif}} sinif</h1>
+		<!-- Cədvəl konstruksiyası -->
+		<table>
+			<tr>
+				<th rowspan="2">Sıra No</th>
+				<th rowspan="2">Adı</th>
+				<th rowspan="2">Soyadı</th>
+				<th rowspan="2">Ata adı</th>
+                <th rowspan="2">Sinif</th>
+                <th colspan="3">Azərbaycan dili</th>
+                <th colspan="3">Riyaziyyat</th>
+                <th colspan="3">İngilis dili</th>
+                <th rowspan="2">Cəmi</th>
+			</tr>
+            <tr>
+                <th>Düz</th>
+                <th>Səhv</th>
+                <th>Bal</th>
+                <th>Düz</th>
+                <th>Səhv</th>
+                <th>Bal</th>
+                <th>Düz</th>
+                <th>Səhv</th>
+                <th>Bal</th>
+            </tr>
+			
+			<tr>
+				<!-- Hər sütün üçün alınan məlumatlar -->
+				{% for student in students %}
+					<td>{{forloop.counter}}</td>
+                    <td>{{student.aad}}</td>
+                    <td>{{student.soyad}}</td>
+                    <td>{{student.ata_adi}}</td>
+                    <td>{{student.sinif}}</td>
+                    <td>{{student.f1_d}}</td>
+                    <td>{{student.f1_s}}</td>
+                    <td>{{student.f1_c}}</td>
+                    <td>{{student.f2_d}}</td>
+                    <td>{{student.f2_s}}</td>
+                    <td>{{student.f2_c}}</td>
+                    <td>{{student.f3_d}}</td>
+                    <td>{{student.f3_s}}</td>
+                    <td>{{student.f3_c}}</td>
+                    <td>{{student.cem}}</td>
+			</tr>
+                {%endfor%}
+		</table>
+	</section>
+</body>
+
+</html>

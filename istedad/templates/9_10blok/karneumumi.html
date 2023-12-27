@@ -1,0 +1,405 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <title>JafarSadigzade v1.0</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style>
+        html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,
+        cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,
+        ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,
+        embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            line-height: 24px;
+            color: #4d4d4d;
+            font-size: 16px;
+        }
+
+        img {
+            border: 0;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 0;
+            padding: 0;
+            text-align: left;
+            border: 1px solid #000 !important;
+            font-size: 1.20em !important;
+        }
+
+        table td {
+            padding: 8px 4px;
+            line-height: 18px;
+            vertical-align: middle;
+            border-bottom: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        table.karne code {
+            /*font-size:1.58em;
+            */
+            color: #770438;
+        }
+
+        table.karne {
+            border-bottom: 0 !important;
+        }
+
+        code {
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 12px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            padding: 1px 2px;
+            color: #ea7777;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8
+        }
+
+        p {
+            margin-bottom: 24px
+        }
+
+        .student_data {
+            font-size: 12px;
+        }
+
+        .karne_umumi {
+            background: #ECEEEE;
+            margin-top: 10px;
+            width: 820px !important;
+            height: 510px !important;
+            display: inline-block;
+            margin-right: 10px !important;
+            margin-left: 10px;
+            margin-bottom: 50px;
+            border-radius: 5px;
+        }
+
+        div.karne_umumi img {
+            border: none;
+            float: left;
+        }
+
+        div.karne_umumi table td img {
+            border: none;
+            float: none;
+        }
+
+        .vereqe_basliq {
+            background: #efefee;
+            border-radius: 8px 8px 0 0;
+            padding: 5px;
+            margin: auto 1px;
+        }
+
+        .vereqe_body {
+            background: #FFFFFF;
+            border-radius: 0 0 8px 8px;
+            padding: 0;
+            margin: 0 auto;
+            color: #515658;
+            font-size: 11px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            min-height: 300px;
+            max-height: 1080px;
+            width: max-content;
+            overflow: hidden;
+        }
+
+        .cvb {
+            width: 160px !important;
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 12px;
+            color: #333333;
+            background-color: #f7f7f9;
+            border: 1px solid #000;
+            margin-left: 2px;
+            padding-left: 1px;
+            padding-right: 1px;
+            line-height: normal;
+            display: inline-block;
+        }
+
+        .cvb1 {
+            width: 40px !important;
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 12px;
+            color: #333333;
+            background-color: #f7f7f9;
+            border: 1px solid #000;
+            margin-left: 2px;
+            padding-left: 1px;
+            padding-right: 1px;
+            display: inline-block;
+            line-height: normal;
+        }
+
+        .cvb2 {
+            width: 70px !important;
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 12px;
+            color: #333333;
+            background-color: #f7f7f9;
+            border: 1px solid #000;
+            margin-left: 2px;
+            padding-left: 1px;
+            padding-right: 1px;
+            line-height: normal;
+            display: inline-block;
+        }
+
+        .cvb3 {
+            width: 85px !important;
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 12px;
+            color: #333333;
+            background-color: #f7f7f9;
+            border: 1px solid #000;
+            margin-left: 2px;
+            padding-left: 1px;
+            padding-right: 1px;
+            text-align: center;
+            display: inline-block;
+            line-height: normal;
+        }
+
+        hr {
+            margin-bottom: 1px !important;
+            margin-top: 1px !important;
+        }
+
+        /*umumi siyahi */
+
+        table.minimalistBlack td,
+        table.minimalistBlack th {
+            border: 1px solid #000000;
+            padding: 2px 1px;
+        }
+
+        table.minimalistBlack tbody td {
+            font-size: 13px;
+        }
+
+        table.minimalistBlack thead {
+            background: #CFCFCF;
+            background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            border-bottom: 3px solid #000000;
+        }
+
+        table.minimalistBlack thead th {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000000;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    {% for student in students %}
+        <div class="container-fluid">
+        <div style="height:350px !important; width:1110px !important;" class="karne_umumi">
+            <div class="vereqe_basliq">
+                <span style="float: left">Tutduğu Yer: {{ forloop.counter }} </span>
+                <span style="margin-left: 5%;">İmtahan nəticə vərəqəsi: {{student.sinif}}-ci sinif blok</span>
+                <span style="float: right"> Bal: {{student.cem}}</span>
+            </div>
+            <div class="vereqe_body">
+                <table class="karne">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="student_data"><strong>Ad:</strong> {{student.aad}} </div>
+                                <br>
+                                <div class="student_data"><strong>Soyad:</strong> {{student.soyad}} </div>
+                                <br>
+                                <div class="student_data"><strong>İş №:</strong> {{student.is_no}} </div>
+                                <br>
+                                <div class="student_data"><strong>Sinif:</strong> {{student.sinif}} </div>
+                                <br>
+                                <div class="student_data"><strong>Blok:</strong> {{student.blok}} </div>
+                                <br>
+                                <div class="student_data"><strong>Tarix:</strong>{{tarix}}</div>
+                            </td>
+                            <td style=" padding: 2px 2px !important; border-right: 0 !important;">
+                                <div>
+                                    <div style="text-align: center;"><img style="margin-top:-20px;" src="{% static 'images/logo1.png' %}" width="100" alt="logo"></div>
+                                </div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Fənlər</strong></td>
+                                            <td><strong>Cavablar</strong></td>
+                                            <td><strong>Qapalı Düz</strong></td>
+                                            <td><strong>Qapalı Səhv</strong></td>
+                                            <td><strong>Açıq Düz</strong></td>
+                                            <td><strong>Bal</strong></td>
+                                            <td><strong>Cəmi</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{student.fennler.0}}</td>
+                                            <td>
+                                                <code>
+                                                    <img src="{% static 'images/key.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.d1_q}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.d1_uyg.0 }};{{ student.d1_uyg.1 }};{{ student.d1_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.d1_k_aa.6}}</span>
+                                                    <br>
+                                                </code>
+                                                <code>
+                                                    <img src="{% static 'images/stu.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.f1_qq|safe}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.f1_uyg.0 }};{{ student.f1_uyg.1 }};{{ student.f1_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.f1_k_aa.6}}</span>
+                                                </code>
+                                            </td>
+                                            <td>{{student.f1_d_q}}</td>
+                                            <td>{{student.f1_d_s}}</td>
+                                            <td>{{student.f1_d_a.0}}</td>
+                                            <td>{{student.f1_cem}}</td>
+                                            <td rowspan=3>{{student.cem}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{{student.fennler.1}}</td>
+                                            <td>
+                                                <code>
+                                                    <img src="{% static 'images/key.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.d2_q}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.d2_uyg.0 }};{{ student.d2_uyg.1 }};{{ student.d2_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.d2_k_aa.6}}</span>
+                                                    <br>
+                                                </code>
+                                                <code>
+                                                    <img src="{% static 'images/stu.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.f2_qq|safe}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.f2_uyg.0 }};{{ student.f2_uyg.1 }};{{ student.f2_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.f2_k_aa.6}}</span>
+                                                </code>
+                                            </td>
+                                            <td>{{student.f2_d_q}}</td>
+                                            <td>{{student.f2_d_s}}</td>
+                                            <td>{{student.f2_d_a.0}}</td>
+                                            <td>{{student.f2_cem}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{{student.fennler.2}}</td>
+                                            <td>
+                                                <code>
+                                                    <img src="{% static 'images/key.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.d3_q}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.d3_uyg.0 }};{{ student.d3_uyg.1 }};{{ student.d3_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.d3_k_aa.6}}</span>
+                                                    <br>
+                                                </code>
+                                                <code>
+                                                    <img src="{% static 'images/stu.png' %}" alt="logo">
+                                                    <span class="cvb">{{student.f3_qq|safe}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.0}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.1}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.2}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.3}}</span>
+                                                    <span class="cvb2">{{ student.f3_uyg.0 }};{{ student.f3_uyg.1 }};{{ student.f3_uyg.2 }}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.4}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.5}}</span>
+                                                    <span class="cvb1">{{student.f3_k_aa.6}}</span>
+                                                </code>
+                                            </td>
+                                            <td>{{student.f3_d_q}}</td>
+                                            <td>{{student.f3_d_s}}</td>
+                                            <td>{{student.f3_d_a.0}}</td>
+                                            <td>{{student.f3_cem}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="float:left;">
+                    <div style="margin-left:10px; display:inline-block;">
+                        <img style="padding-top:4px" src="{% static 'images/key.png' %}" alt="logo"> Düzgün cavablar
+                    </div>
+                    <div style="margin-left:10px; display:inline-block;">
+                        <img style="padding-top:4px" src="{% static 'images/stu.png' %}" alt="logo"> Şagirdin cavabları
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- son container -->
+    {% endfor %}
+</body>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Əsas səhifə {% endblock %}
+
+{% block content %}
+
+	<div id="fh5co-contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5 col-md-push-1 animate-box">
+					
+					<div class="fh5co-contact-info">
+						<h3>Əlaqə məlumatları</h3>
+						<ul>
+							<li class="address">Nəsrəddin Tusi küçəsi<br>Lifan zavod ilə üzbəüz</li>
+							<li class="phone"><a href="tel://+994365457411">036 545 74 11 Qeydiyyat şöbəsi</a></li>
+							<li class="phone"><a href="tel://+994703057411">070 305 74 11 Tədris şöbəsi</a></li>
+							<li class="phone"><a href="tel://+994773457411">077 345 74 11 Mühasibatlıq</a></li>
+							<li class="email"><a href="istedad21@gmail.com">www.istedad21.edu.az</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<h3>Əlaqə yarat!</h3>
+					<form action="elaqe" method="POST">
+						{% csrf_token %}
+						<div class="row form-group">
+							<div class="col-md-6">
+								<input type="text" name="fname" maxlength="50" class="form-control" placeholder="Adınız" required id="id_fname">
+							</div>
+							<div class="col-md-6">
+								<input type="text" name="lname" maxlength="50" class="form-control" placeholder="Soyadınız" required id="id_lname">
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-12">
+								<input type="text" name="telNo" maxlength="50" class="form-control" placeholder="Telefon No" required id="id_telNo">
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-12">
+								<input type="text" name="subject" maxlength="500" class="form-control" placeholder="Mövzu" required id="id_subject">
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-12">
+								<input type="textarea" name="message" maxlength="1500" cols="30" rows="10" class="form-control" placeholder="Bizə yazın"  required id="id_message">
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Mesaj göndər" class="btn btn-success">
+						</div>
+					</form>		
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d943.1315332830261!2d45.42416846379399!3d39.195118962262256!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1624440346317!5m2!1str!2s" width="2000" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+{% endblock %}

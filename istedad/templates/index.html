@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Əsas səhifə {% endblock %}
+
+{% block content %}
+
+	<aside id="fh5co-hero">
+		<div class="flexslider">
+			<ul class="slides">
+				{% for esassehifes in esassehife %}
+					{% if esassehifes.is_active %}
+						<li style="background-image: url( {{esassehifes.sekil.url}} );">
+							<div class="overlay-gradient"></div>
+							<div class="container">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2 text-center slider-text">
+										<div class="slider-text-inner">
+											<h1>{{ esassehifes.basliq|safe }}</h1>
+									    	<h2>{{ esassehifes.elave|safe }}</h2>
+											<h2>{{ esassehifes.elave1|safe }}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endif %}
+				{% endfor %}
+		   	</ul>
+	  	</div>
+	</aside>
+
+	<div id="fh5co-course">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h2>Xidmətlərimiz</h2>
+				</div>
+			</div>
+			<div class="row">
+				{% for kurslars in kurslar %}
+					{% if kurslars.is_active %}
+						<div class="col-md-6 animate-box">
+							<div class="course">
+								<a class="course-img" style="background-image: url({{ kurslars.sekil.url }});"></a>
+								<div class="desc">
+									<h3>{{kurslars.kurs_adi}}</h3>
+									<p></p>
+									<span><a href="{% url 'kurs_details' kurslars.slug %}" class="btn btn-primary btn-sm btn-course">Daha ətraflı</a></span>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div id="fh5co-counter" class="fh5co-counters" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row">
+						{% for saygacs in saygac %}
+							{% if saygacs.is_active %}
+								<div class="col-md-3 col-sm-6 text-center animate-box">
+									<span class="icon"><i class="{{ saygacs.icon }}"></i></span>
+									<span class="fh5co-counter js-counter" data-from="0" data-to="{{saygacs.cem}}" data-speed="{{saygacs.suret}}" data-refresh-interval="{{saygacs.interval}}"></span>
+									<span class="fh5co-counter-label">{{saygacs.basliq}}</span>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="fh5co-blog">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h2>Xəbərlər</h2>
+				</div>
+			</div>
+			<section class="articles">
+				{% for tedbirss in tedbirler %}
+					{% if tedbirss.is_active %}
+						<article>
+							<div class="article-wrapper">
+								<figure>
+									<img src="{{ tedbirss.sekil.url }}"/>
+								</figure>
+								<div class="article-body">
+									<h2>{{ tedbirss.basliq }}</h2>
+									<a href="{% url 'xeber_details' tedbirss.slug %}" class="read-more">Daha çox oxu <span class="sr-only"></span>
+										<svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+											<path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+										</svg>
+									</a>
+								</div>
+							</div>
+						</article>
+					{% endif %}
+				{% endfor %}
+			</section>
+		</div>
+	</div>
+
+	<div id="fh5co-testimonial" style="background-image: url({% static 'images/school.jpg' %});">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h2><span>Şərhlər</span></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row animate-box">
+						<div class="owl-carousel owl-carousel-fullwidth">
+							
+						{% for serhlers in serhler %}
+							{% if serhlers.is_active %}
+								<div class="item">
+									<div class="testimony-slide active text-center">
+										<div class="user" style="background-image: url({{ serhlers.sekil.url }});"></div>
+										<span>{{serhlers.ad_soyad}}<br><small>{{serhlers.basliq}}</small><br><small>{{serhlers.yuksek_netice}}</small></span>
+										<blockquote>
+											<p>&ldquo;{{serhlers.aciqlama}}&rdquo;</p>
+										</blockquote>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+							
+													
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+	
+	<div id="fh5co-register">
+		<div class="overlay"></div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 animate-box">
+				<div class="date-counter text-center">
+					<h2>Güzəştli qeydiyyat müddətimiz davam edir!</h2>
+					<!--<div class="simply-countdown simply-countdown-one"></div>-->
+					<p><strong>Tələsin!</strong></p>
+					<p><a href="{% url 'qeydiyyat' %}" class="btn btn-primary btn-lg btn-reg">Qeydiyyatdan keç!</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Sınaq qeydiyyat {% endblock %}
+
+{% block content %}
+
+	<div id="fh5co-pricing" class="fh5co-bg-section">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h2>ONLINE QEYDİYYAT</h2>
+					<p>İstedad kurslarının sınaqlarına online olaraq qeydiyyatdan keçə bilərsiniz.</p>
+				</div>
+
+				<div class="col-md-6 animate-box"><h3>Qeydiyyatdan keç!</h3>
+					<form action="sinaqqeydiyyat" method="POST">
+						{% csrf_token %}
+						<div class="row form-group">
+							<div class="col-md-6">
+								<input type="text" name="fname" maxlength="50" class="form-control" placeholder="Adınız" required id="id_fname">
+							</div>
+							<div class="col-md-6">
+								<input type="text" name="lname" maxlength="50" class="form-control" placeholder="Soyadınız" required id="id_lname">
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-3">
+								<p class="form-control">+994</p>
+							</div>
+							<div class="col-md-3">
+								<select name="telNo_basliq" maxlength="50" class="form-control" maxlength="50" required id="id_telNo_basliq">
+									<option value="36">036</option>
+									<option value="50">050</option>
+									<option value="51">051</option>
+									<option value="10">010</option>
+									<option value="55">055</option>
+									<option value="99">099</option>
+									<option value="70">070</option>
+									<option value="77">077</option>
+									<option value="60">060</option>
+								</select>
+							</div>
+							
+							<div class="col-md-6">
+								<input type="text" name="telNo" maxlength="50" class="form-control" placeholder="Telefon No" required id="id_telNo">
+							</div>
+						</div>
+
+						<div class="row form-group">
+							<div class="col-md-6">
+								<select name="rayon" maxlength="50" class="form-control" maxlength="50" required id="id_rayon" placeholder="Rayon">
+									<option value="1">Naxçıvan şəhəri</option>
+									<option value="2">Babək rayon</option>
+									<option value="3">Culfa rayon</option>
+									<option value="4">Ordubad rayon</option>
+									<option value="4">Şahbuz rayon</option>
+									<option value="4">Kəngərli rayon</option>
+									<option value="4">Şərur rayon</option>
+									<option value="4">Sədərək rayon</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<input type="text" name="mekteb" maxlength="50" class="form-control" placeholder="Məktəb" required id="id_mekteb">
+							</div>
+						</div>
+						
+						<div class="row form-group">
+							<div class="col-md-6">
+								<select name="sinif" maxlength="50" class="form-control" maxlength="50" required id="id_sinif" placeholder="Sinif">
+									<option value="9">9-cu sinif</option>
+									<option value="10">10-cu sinif</option>
+									<option value="11">11-ci sinif</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<select name="blok" maxlength="50" class="form-control" maxlength="50" required id="id_blok" placeholder="Blok">
+									<option value="1">I blok</option>
+									<option value="2">II blok</option>
+									<option value="3">III blok</option>
+									<option value="4">IV blok</option>
+									<option value="5">V blok</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="row form-group">
+							<div class="col-md-12">
+								<select name="xdil" class="form-control" maxlength="50" required id="id_xdil">
+									<option value="İngilis dili">İngilis dili</option>
+									<option value="Rus dili">Rus dili</option>
+									<option value="Fransız dili">Fransız dili</option>
+									<option value="Alman dili">Alman dili</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<input type="submit" value="Qeydiyyatdan Keç" class="btn btn-success">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

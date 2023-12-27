@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{kurs.kurs_adi}} {% endblock %}
+
+{% block content %}
+
+	<div id="fh5co-about">
+		<div class="container">
+			<!--<div class="col-md-6 animate-box">
+				<h2>{{ kurs.kurs_adi }}</h2>				
+			</div>-->
+		</div>
+		<div class="container">
+			<p>{{ kurs.genis_melumat|safe }}</p>
+		</div>	
+	</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Media {% endblock %}
+
+{% block css %}
+	#formid{
+		display:table;
+		margin:auto;
+	}
+	label{
+		display:inline-block;
+		text-transform:uppercase;
+		color:#fff;
+		background:#c0392b;
+		text-align:center;
+		padding:15px 40px;
+		letter-spacing:1.5px;
+		user-select:none;
+		cursor:pointer;
+	}
+	input[type="file"]{
+		display:none;
+	}
+{% endblock %}
+
+{% block content %}
+	{%if user.is_authenticated%}
+		<div class="row">
+			<form id="formid" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<label for="id_sekil">Şəkil:</label>
+				<input type="file" name="sekil" multiple required id="id_sekil">
+				<button type="submit">Yüklə</button>
+			</form>
+		</div>
+	{%endif%}
+	
+	<div id="fh5co-gallery" class="fh5co-bg-section">
+	<div class="row text-center"><h2><span>Galareya</span></h2></div>
+		{% for medias in media %}
+			{% if medias.is_active %}
+
+				<div class="row col-md-3 col-padded">
+					<h2 class="text-center col-padded">{{ medias.sekil_adi }}</h2><a href="#" class="gallery" style="background-image: url({{ medias.sekil.url }});" ></a>
+				</div>
+			
+			{% endif %}
+		{% endfor %}
+	</div>
+
+{% endblock %}

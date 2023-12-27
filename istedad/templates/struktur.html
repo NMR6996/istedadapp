@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Struktur {% endblock %}
+
+{% block content %}
+
+
+	<div id="fh5co-staff">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="staff">
+						<div class="staff-img" style="background-image: url({% static 'images/rektor.jpg' %}); height: 650px;">
+						</div>
+						<span>İstedad XXI əsr MMC-nin təsisçisi</span>
+						<h3>Elbrus İsayev</h3>
+						<p>Tarix üzrə fəlsəfə doktoru, dosent</p>
+					</div>
+				</div>
+				{% for strukturs in struktur %}
+					{% if strukturs.is_active %}
+						<div class="col-md-4 text-center">
+							<div class="staff">
+								<div class="staff-img" style="background-image: url({{ strukturs.sekil.url }});">
+								</div>
+								<span>{{ strukturs.vezife }}</span>
+								<h3>{{ strukturs.ad_soyad }}</h3>
+								<p>{{ strukturs.elave }}</p>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
