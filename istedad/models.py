@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 from django.utils.html import mark_safe
 from django import forms
 
+from istedadapp.storage_backends import PublicMediaStorage, PrivateMediaStorage
+
 sinaqmodel = (
     ("asagisinif", "Aşağı siniflər"),
     ("blok9_10", "Blok 9 və 10-cu siniflər"),
@@ -17,7 +19,7 @@ class EsasSehife(models.Model):
     basliq = RichTextField(blank=True, max_length=200)
     elave = RichTextField(blank=True, max_length=100)
     elave1 = RichTextField(blank=True, max_length=100)
-    sekil = models.ImageField(null=False, upload_to="istedad_images/giris/")
+    sekil = models.ImageField(null=False, storage=PublicMediaStorage() ,upload_to="istedad_images/giris/")
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -40,7 +42,7 @@ class Struktur(models.Model):
     vezife = models.CharField(max_length=50)
     ad_soyad = models.CharField(max_length=50)
     elave = models.CharField(max_length=100)
-    sekil = models.ImageField(null=False, upload_to="istedad_images/struktur/")
+    sekil = models.ImageField(null=False, storage=PublicMediaStorage() ,upload_to="istedad_images/struktur/")
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -51,7 +53,7 @@ class Muellim(models.Model):
     ad = models.CharField(max_length=50)
     fenn = models.CharField(max_length=50)
     aciqlama = RichTextField(blank=True)
-    sekil = models.ImageField(upload_to="istedad_images/muellim/")
+    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/muellim/")
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
@@ -67,7 +69,7 @@ class Kurslar(models.Model):
     kurs_adi = models.CharField(max_length=50)
     genis_melumat = RichTextField()
     is_active = models.BooleanField()
-    sekil = models.ImageField(upload_to="istedad_images/kurslar/")
+    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/kurslar/")
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
     def __str__(self):
@@ -81,7 +83,7 @@ class Kurslar(models.Model):
 class Tedbirler(models.Model):
     tarix = models.DateField(auto_now_add=True)
     basliq = models.CharField(max_length=100)
-    sekil = models.ImageField(upload_to="istedad_images/xeberler/")
+    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/xeberler/")
     aciqlama = RichTextField()
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
@@ -99,7 +101,7 @@ class Serhler(models.Model):
     yuksek_netice = models.CharField(max_length=50)
     basliq = models.CharField(max_length=100)
     aciqlama = models.TextField()
-    sekil = models.ImageField(null=True, upload_to="istedad_images/serhler/")
+    sekil = models.ImageField(storage=PublicMediaStorage(), null=True, upload_to="istedad_images/serhler/")
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
@@ -113,7 +115,7 @@ class Serhler(models.Model):
 
 class Media(models.Model):
     sekil_adi = models.CharField(max_length=50, blank=True)
-    sekil = models.ImageField(upload_to="istedad_images/media/")
+    sekil = models.ImageField(storage=PublicMediaStorage(), upload_to="istedad_images/media/")
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
@@ -137,7 +139,7 @@ class Sinaqlar(models.Model):
     sinaq_nov = models.CharField(choices=sinaqmodel, max_length=100, null=True)
     sinaq_duzgun_cvb = models.TextField(blank=True, null=True)
     sinaq_sagird_cvb = models.TextField(blank=True, null=True)
-    sinaq_sekil = models.ImageField(upload_to="istedad_images/sinaq/", null=True)
+    sinaq_sekil = models.ImageField(storage=PublicMediaStorage(), upload_to="istedad_images/sinaq/", null=True)
     is_active = models.BooleanField()
     slug = models.SlugField(null=True, blank=True, unique=True, db_index=True, editable=False)
     counter = models.IntegerField(default=0)
