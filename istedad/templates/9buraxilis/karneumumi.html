@@ -42,7 +42,7 @@
                                 </td>
                                 <td style=" padding: 2px 2px !important; border-right: 0 !important;">
                                     <div>
-                                        <img style="width: 120px;" src="{% static 'images/logo1.png' %}">
+                                        <img style="margin-top:-20px; width:100px;" src={% static 'images/logo1.png' %}>
                                     </div>
                                     <table>
                                         <tbody>
@@ -60,21 +60,16 @@
                                                 <td>
                                                     <img src="{% static '/images/key.png' %}">
                                                     <code>
-                                                        <span class="cvb1">{{student.d1_qq.0}}</span>
-                                                        <span class="cvb1">4</span>
-                                                        <span class="cvb1">5</span>
+                                                        <span class="cvb3">{{student.d1_qq.0|safe}}</span>
                                                         <span class="cvb1">6</span>
-                                                        <span class="cvb">{{student.d1_qq.1}}</span>
-                                                        <span class="cvb3" style="width: 150px !important;">Mətn sualları</span>
+                                                        <span class="cvb">{{student.d1_qq.1|safe}}</span>
+                                                        <span class="cvb3" style="width: 110px !important;">Mətn sualları</span>
                                                     </code><br>
                                                     <img src="{% static '/images/stu.png' %}">
                                                     <code>
-                                                        <span class="cvb1">{{student.f1_qq.0|safe}}</span>
-                                                        <span class="cvb1">{{student.f1_a4}}</span>
-                                                        <span class="cvb1">{{student.f1_a5}}</span>
+                                                        <span class="cvb3">{{student.f1_qq.0|safe}}</span>
                                                         <span class="cvb1">{{student.f1_a6}}</span>
                                                         <span class="cvb">{{student.f1_qq.1|safe}}</span>
-                                                        <span class="cvb1">{{student.f1_a27}}</span>
                                                         <span class="cvb1">{{student.f1_a28}}</span>
                                                         <span class="cvb1">{{student.f1_a29}}</span>
                                                         <span class="cvb1">{{student.f1_a30}}</span>
@@ -90,23 +85,17 @@
                                                 <td>
                                                     <img src="{% static '/images/key.png' %}">
                                                     <code>
-                                                        <span class="cvb">{{student.d2_qq.0}}</span>
-                                                        <span class="cvb3" style="width: 187px !important;">1-ci mətn</span>
-                                                        <span class="cvb">{{student.d2_qq.1}}</span>
-                                                        <span class="cvb3" style="width: 187px !important;">2-ci mətn</span>
+                                                        <span class="cvb">{{student.d2_qq.0|safe}}</span>
+                                                        <span class="cvb3" style="width: 70px !important;">1-ci mətn</span>
+                                                        <span class="cvb">{{student.d2_qq.1|safe}}</span>
+                                                        <span class="cvb3" style="width: 70px !important;">2-ci mətn</span>
                                                     </code><br>
                                                     <img src="{% static '/images/stu.png' %}">
                                                     <code>
-                                                        <span class="cvb">{{student.f2_qq.0}}</span>
-                                                        <span class="cvb1">{{student.f2_a46}}</span>
-                                                        <span class="cvb1">{{student.f2_a47}}</span>
-                                                        <span class="cvb1">{{student.f2_a48}}</span>
+                                                        <span class="cvb">{{student.f2_qq.0|safe}}</span>
                                                         <span class="cvb1">{{student.f2_a49}}</span>
                                                         <span class="cvb1">{{student.f2_a50}}</span>
-                                                        <span class="cvb">{{student.f2_qq.1}}</span>
-                                                        <span class="cvb1">{{student.f2_a56}}</span>
-                                                        <span class="cvb1">{{student.f2_a57}}</span>
-                                                        <span class="cvb1">{{student.f2_a58}}</span>
+                                                        <span class="cvb">{{student.f2_qq.1|safe}}</span>
                                                         <span class="cvb1">{{student.f2_a59}}</span>
                                                         <span class="cvb1">{{student.f2_a60}}</span>
                                                     </code>
@@ -126,19 +115,18 @@
                                                         <span class="cvb2">{{ student.d3_k_aa.2}}</span>
                                                         <span class="cvb2">{{ student.d3_k_aa.3}}</span>
                                                         <span class="cvb2">{{ student.d3_k_aa.4}}</span>
-                                                        <span class="cvb3" style="width: 265px !important;">Həlli tələb olunan tapşırıqlar</span>
+                                                        <span class="cvb2">{{ student.d3_k_aa.5}}</span>
+                                                        <span class="cvb3" style="width: 145px !important;">Həlli tələb olunan</span>
                                                     </code><br>
                                                     <img src="{% static '/images/stu.png' %}">
                                                     <code>
-                                                        <span class="cvb">{{student.f3_q}}</span>
+                                                        <span class="cvb">{{student.f3_qq|safe}}</span>
                                                         <span class="cvb2">{{ student.f3_k_aa.0}}</span>
                                                         <span class="cvb2">{{ student.f3_k_aa.1}}</span>
                                                         <span class="cvb2">{{ student.f3_k_aa.2}}</span>
                                                         <span class="cvb2">{{ student.f3_k_aa.3}}</span>
                                                         <span class="cvb2">{{ student.f3_k_aa.4}}</span>
-                                                        <span class="cvb1">{{ student.f3_a79 }}</span>
-                                                        <span class="cvb1">{{ student.f3_a80 }}</span>
-                                                        <span class="cvb1">{{ student.f3_a81 }}</span>
+                                                        <span class="cvb2">{{ student.f3_k_aa.5}}</span>
                                                         <span class="cvb1">{{ student.f3_a82 }}</span>
                                                         <span class="cvb1">{{ student.f3_a83 }}</span>
                                                         <span class="cvb1">{{ student.f3_a84 }}</span>

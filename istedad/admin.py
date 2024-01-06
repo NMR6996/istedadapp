@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Muellim, Tedbirler, Serhler, EsasSehife, Saygac, Struktur, Media, Kurslar, Sinaqlar, Buraxilis11, AsagiSinif, Blok11, Blok9_10
+from .models import Muellim, Tedbirler, Serhler, EsasSehife, Saygac, Struktur, Media, Kurslar, Sinaqlar, Buraxilis11, Buraxilis9, AsagiSinif, Blok11, Blok9_10
 
 
 def make_media_active(queryset):
@@ -64,7 +64,6 @@ class IstedadAdminSinaqlar(admin.ModelAdmin):
     list_display = ("sinaq_adi", "sinaq_tarix", "is_active", "counter")
     list_editable = ("is_active", "counter")
     search_fields = ("sinaq_adi", "sinaq_tarix")
-    readonly_fields = ("slug",)
 
 
 class IstedadAdminBuraxilis11(admin.ModelAdmin):
@@ -74,14 +73,23 @@ class IstedadAdminBuraxilis11(admin.ModelAdmin):
 
 
 class IstedadAdminBlok11(admin.ModelAdmin):
-    list_display = ("sinaq_no", "aad", "soyad", "sinif", "blok", "f1_28", "f1_29", "f1_30", "f2_28", "f2_29", "f2_30", "f3_28", "f3_29", "f3_30", "cem" )
+    list_display = ("sinaq_no", "aad", "soyad", "sinif", "blok", "f1_28", "f1_29", "f1_30", "f2_28", "f2_29", "f2_30", "f3_28", "f3_29", "f3_30", "cem")
     list_editable = ("f1_28", "f1_29", "f1_30", "f2_28", "f2_29", "f2_30", "f3_28", "f3_29", "f3_30",)
 
+
 class IstedadAdminBlok9_10(admin.ModelAdmin):
-    list_display = ("sinaq_no", "aad", "soyad", "sinif", "blok", "cem" )
+    list_display = ("sinaq_no", "aad", "soyad", "sinif", "blok", "cem")
+
 
 class IstedadAdminAsagiSinif(admin.ModelAdmin):
     list_display = ("sinaq_no", "aad", "soyad", "sinif", "f1_d", "f1_s", "f1_c", "f2_d", "f2_s", "f2_c", "f3_d", "f3_s", "f3_c", "cem")
+
+
+class ItsedadAdminBuraxilis9(admin.ModelAdmin):
+    list_display = ("sinaq_no", "aad", "soyad", "sinif", "f1_a6", "f1_a28", "f1_a29", "f1_a30", "f2_a49", "f2_a50", "f2_a59", "f2_a60", "f3_a82", "f3_a83", "f3_a84", "f3_a85", "cem")
+    list_editable = ("f1_a6", "f1_a28", "f1_a29", "f1_a30", "f2_a49", "f2_a50", "f2_a59", "f2_a60", "f3_a82", "f3_a83", "f3_a84", "f3_a85")
+    list_filter = ("sinaq_no", "aad", "soyad", "sinif")
+
 
 admin.site.register(EsasSehife, IstedadAdminEsasSehife)
 admin.site.register(Muellim, IstedadAdminMuellimler)
@@ -96,3 +104,4 @@ admin.site.register(Buraxilis11, IstedadAdminBuraxilis11)
 admin.site.register(AsagiSinif, IstedadAdminAsagiSinif)
 admin.site.register(Blok11, IstedadAdminBlok11)
 admin.site.register(Blok9_10, IstedadAdminBlok9_10)
+admin.site.register(Buraxilis9, ItsedadAdminBuraxilis9)

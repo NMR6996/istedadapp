@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from istedad.models import Muellim, Tedbirler, Serhler, EsasSehife, Saygac, Struktur, Media, Kurslar, Sinaqlar, \
-    Buraxilis11, AsagiSinif, MediaForm, Blok11, Blok9_10
-from django.http.response import HttpResponse, HttpResponseRedirect
+from istedad.models import Muellim, Tedbirler, Serhler, EsasSehife, Saygac, Struktur, Kurslar, Sinaqlar, \
+    Buraxilis11, AsagiSinif, Blok11, Blok9_10, Buraxilis9
+from django.http.response import HttpResponse
 
 
 # Create your views here.
@@ -92,24 +92,6 @@ def qeydiyyatt(request):
     return render(request, "qeydiyyat/qeydiyyat.html", context)
 
 
-def media(request):
-    if request.method == 'POST':
-        form = MediaForm(request.POST, request.FILES)
-        if form.is_valid():
-            for f in request.FILES.getlist('sekil'):
-                Media.objects.create(sekil=f)
-            sekil = request.POST.get('sekil', '/media')
-            # return HttpResponse("Şəkillər uğurla yükləndi")
-            return HttpResponseRedirect(sekil)
-    else:
-        form = MediaForm
-    return render(request, "media.html", {
-        "mediauploads": form,
-        "media": Media.objects.filter(is_active=True),
-        "kurslar": Kurslar.objects.filter(is_active=True),
-    })
-
-
 def sinaqlar(request):
     context = {
         "sinaqs": Sinaqlar.objects.all(),
@@ -127,23 +109,30 @@ def sinaq_details(request, id):
 def sinaqcavab(request):
     isno_input = request.GET.get('search')
     id_input = request.GET.get('id')
-    sinaq = Sinaqlar.objects.get(id=id_input)
+    sinaq = Sinaqlar.objects.get(id=id_input, is_active=True)
 
-    if sinaq.sinaq_nov == 'buraxilis9':
-        pass
-
-    elif sinaq.sinaq_nov == 'buraxilis10-11':
+    if sinaq.sinaq_nov == 'buraxilis10' or sinaq.sinaq_nov == 'buraxilis11':
         try:
-            student = Buraxilis11.objects.get(sinaq_no=id_input, is_no=isno_input)
-            return render(request, "11buraxilis/ferdi.html", {"student": student})
-        except:
+            students_ordered = Buraxilis11.objects.filter(sinaq_no=id_input).order_by('-cem')
+            student = students_ordered.get(is_no=isno_input)
+
+            student_index = list(students_ordered).index(student) + 1
+
+            return render(request, "11buraxilis/ferdi.html", {"student": student, "student_index": student_index})
+
+        except Buraxilis11.DoesNotExist:
             return HttpResponse('İş nömrəsi tapılmadı')
 
-    elif sinaq.sinaq_nov == 'asagisinif':
+    elif sinaq.sinaq_nov == 'buraxilis9':
         try:
-            student = AsagiSinif.objects.get(sinaq_no=id_input, is_no=isno_input)
-            return render(request, "5-8sinif/ferdi.html", {"student": student})
-        except:
+            students_ordered = Buraxilis9.objects.filter(sinaq_no=id_input).order_by('-cem')
+            student = students_ordered.get(is_no=isno_input)
+
+            student_index = list(students_ordered).index(student) + 1
+
+            return render(request, "9buraxilis/ferdi.html", {"student": student, "student_index": student_index})
+
+        except Buraxilis9.DoesNotExist:
             return HttpResponse('İş nömrəsi tapılmadı')
 
     elif sinaq.sinaq_nov == 'blok11':
@@ -172,15 +161,13 @@ def sinaqcavab(request):
         except Blok9_10.DoesNotExist:
             return HttpResponse('İş nömrəsi tapılmadı')
 
+
 def adminsinaqcavab(request):
     id_input = request.GET.get('id')
     karne_input = request.GET.get('sinaqtipi')
     sinaq = Sinaqlar.objects.get(id=id_input)
 
-    if sinaq.sinaq_nov == 'buraxilis9':
-        pass
-
-    elif sinaq.sinaq_nov == 'buraxilis10-11':
+    if sinaq.sinaq_nov == 'buraxilis10' or sinaq.sinaq_nov == 'buraxilis11':
         students = Buraxilis11.objects.filter(sinaq_no=id_input)
 
         if karne_input == 'Karne':
@@ -189,7 +176,21 @@ def adminsinaqcavab(request):
             })
         elif karne_input == 'Siyahi':
             return render(request, "11buraxilis/list.html", {
+                "students": students,
+                "sinaq": sinaq
+            })
+
+    elif sinaq.sinaq_nov == 'buraxilis9':
+        students = Buraxilis9.objects.filter(sinaq_no=id_input)
+
+        if karne_input == 'Karne':
+            return render(request, "9buraxilis/karneumumi.html", {
                 "students": students
+            })
+        elif karne_input == 'Siyahi':
+            return render(request, "9buraxilis/list.html", {
+                "students": students,
+                "sinaq": sinaq
             })
 
     elif sinaq.sinaq_nov == 'asagisinif':

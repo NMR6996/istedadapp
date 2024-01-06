@@ -2,16 +2,15 @@ from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.utils.html import mark_safe
-from django import forms
-
-from istedadapp.storage_backends import PublicMediaStorage, PrivateMediaStorage
+from . import custom_static_func
 
 sinaqmodel = (
     ("asagisinif", "Aşağı siniflər"),
     ("blok9_10", "Blok 9 və 10-cu siniflər"),
     ("blok11", "Blok 11-ci sinif"),
     ("buraxilis9", "Buraxılış 9-cu sinif"),
-    ("buraxilis10-11", "Buraxılış 10 və 11-ci siniflər"),
+    ("buraxilis10", "Buraxılış 10"),
+    ("buraxilis11", "Buraxılış 11"),
 )
 
 
@@ -19,7 +18,7 @@ class EsasSehife(models.Model):
     basliq = RichTextField(blank=True, max_length=200)
     elave = RichTextField(blank=True, max_length=100)
     elave1 = RichTextField(blank=True, max_length=100)
-    sekil = models.ImageField(null=False, storage=PublicMediaStorage() ,upload_to="istedad_images/giris/")
+    sekil = models.ImageField(null=False, upload_to="istedad_images/giris/")
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -42,7 +41,7 @@ class Struktur(models.Model):
     vezife = models.CharField(max_length=50)
     ad_soyad = models.CharField(max_length=50)
     elave = models.CharField(max_length=100)
-    sekil = models.ImageField(null=False, storage=PublicMediaStorage() ,upload_to="istedad_images/struktur/")
+    sekil = models.ImageField(null=False, upload_to="istedad_images/struktur/")
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -53,7 +52,7 @@ class Muellim(models.Model):
     ad = models.CharField(max_length=50)
     fenn = models.CharField(max_length=50)
     aciqlama = RichTextField(blank=True)
-    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/muellim/")
+    sekil = models.ImageField(upload_to="istedad_images/muellim/")
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
@@ -69,7 +68,7 @@ class Kurslar(models.Model):
     kurs_adi = models.CharField(max_length=50)
     genis_melumat = RichTextField()
     is_active = models.BooleanField()
-    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/kurslar/")
+    sekil = models.ImageField(upload_to="istedad_images/kurslar/")
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
     def __str__(self):
@@ -83,7 +82,7 @@ class Kurslar(models.Model):
 class Tedbirler(models.Model):
     tarix = models.DateField(auto_now_add=True)
     basliq = models.CharField(max_length=100)
-    sekil = models.ImageField(storage=PublicMediaStorage() ,upload_to="istedad_images/xeberler/")
+    sekil = models.ImageField(upload_to="istedad_images/xeberler/")
     aciqlama = RichTextField()
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
@@ -101,7 +100,7 @@ class Serhler(models.Model):
     yuksek_netice = models.CharField(max_length=50)
     basliq = models.CharField(max_length=100)
     aciqlama = models.TextField()
-    sekil = models.ImageField(storage=PublicMediaStorage(), null=True, upload_to="istedad_images/serhler/")
+    sekil = models.ImageField(null=True, upload_to="istedad_images/serhler/")
     is_active = models.BooleanField()
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True, editable=False)
 
@@ -115,7 +114,7 @@ class Serhler(models.Model):
 
 class Media(models.Model):
     sekil_adi = models.CharField(max_length=50, blank=True)
-    sekil = models.ImageField(storage=PublicMediaStorage(), upload_to="istedad_images/media/")
+    sekil = models.ImageField(upload_to="istedad_images/media/")
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
@@ -125,23 +124,14 @@ class Media(models.Model):
         return mark_safe(f'<img src = "{self.sekil.url}" width = "300"/>')
 
 
-class MediaForm(forms.ModelForm):
-    sekil = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
-    class Meta:
-        model = Media
-        fields = ('sekil',)
-
-
 class Sinaqlar(models.Model):
     sinaq_adi = models.CharField(max_length=50, verbose_name="Sınaq adı")
     sinaq_tarix = models.DateField(auto_now_add=True)
     sinaq_nov = models.CharField(choices=sinaqmodel, max_length=100, null=True)
     sinaq_duzgun_cvb = models.TextField(blank=True, null=True)
     sinaq_sagird_cvb = models.TextField(blank=True, null=True)
-    sinaq_sekil = models.ImageField(storage=PublicMediaStorage(), upload_to="istedad_images/sinaq/", null=True)
+    sinaq_sekil = models.ImageField(upload_to="istedad_images/sinaq/", null=True)
     is_active = models.BooleanField()
-    slug = models.SlugField(null=True, blank=True, unique=True, db_index=True, editable=False)
     counter = models.IntegerField(default=0)
 
     letter_replacements = [('c', 'Ç'), ('e', 'Ə'), ('g', 'Ğ'), ('i', 'İ'), ('o', 'Ö'), ('s', "Ş"), ('u', 'Ü')]
@@ -155,7 +145,7 @@ class Sinaqlar(models.Model):
     def hesabla(self):
         sinaqs = Sinaqlar.objects.filter(is_active=True)
         for sinaq in sinaqs:
-            if sinaq.sinaq_nov == 'buraxilis10-11' and sinaq.counter == 0:
+            if (sinaq.sinaq_nov == 'buraxilis10' and sinaq.counter == 0) or (sinaq.sinaq_nov == 'buraxilis11' and sinaq.counter == 0):
                 all_text = sinaq.sinaq_sagird_cvb.split("\n")
                 all_text = [self.replace_letters(x, self.letter_replacements) for x in all_text]
                 right_answer = sinaq.sinaq_duzgun_cvb
@@ -164,63 +154,39 @@ class Sinaqlar(models.Model):
                     ad = all_text[row_number][0:12]
                     soyad = all_text[row_number][13:25]
                     is_no = all_text[row_number][26:32]
-                    tel_no = all_text[row_number][33:43]
-                    sinif = all_text[row_number][44:45]
+                    sinif = all_text[row_number][33:34]
+                    x_dil = all_text[row_number][43:44]
+                    kod = all_text[row_number][45:48]
                     if sinif == 'a':
                         sinif = 10
                     elif sinif == 'b':
                         sinif = 11
-                    bolme = all_text[row_number][46:49]
-                    if bolme == 'A':
-                        bolme = "Azərbaycan"
-                    elif bolme == 'R':
-                        bolme = "Rus"
-                    cins = all_text[row_number][50:51]
-                    variant = all_text[row_number][52:53]
-                    x_dil = all_text[row_number][54:55]
-                    rayon = all_text[row_number][56:59]
-                    mekteb = all_text[row_number][60:63]
-                    f1_q = all_text[row_number][64:87]
-                    f2_q = all_text[row_number][88:108]
-                    f3_q = all_text[row_number][109:122]
-                    f3_k_a = all_text[row_number][123:129] + all_text[row_number][130:136] + all_text[row_number][
-                                                                                             137:143] + all_text[
-                                                                                                            row_number][
-                                                                                                        144:150] + \
-                             all_text[row_number][151:157]
+                    f1_q = all_text[row_number][53:76]
+                    f2_q = all_text[row_number][77:97]
+                    f3_q = all_text[row_number][98:111]
+                    f3_k_a = all_text[row_number][112:147]
+
                     if x_dil == "I":
-                        x_dil = "İngilis dili"
                         d1_q = right_answer[0:23]
                     elif x_dil == "F":
-                        x_dil = "Fransız dili"
-                        d1_q = right_answer[92:115]
+                        d1_q = right_answer[98:121]
                     elif x_dil == "A":
-                        x_dil = "Alman dili"
-                        d1_q = right_answer[142:165]
+                        d1_q = right_answer[123:146]
                     elif x_dil == "R":
-                        x_dil = "Rus dili"
-                        d1_q = right_answer[117:140]
+                        d1_q = right_answer[148:171]
                     else:
-                        x_dil = "Seçilmıyib"
                         d1_q = right_answer[0:23]
-
                     d2_q = right_answer[25:45]
                     d3_q = right_answer[47:60]
-                    d3_k = right_answer[60:66] + right_answer[66:72] + right_answer[72:78] + right_answer[
-                                                                                             78:84] + right_answer[
-                                                                                                      84:90]
+                    d3_k = right_answer[61:95]
+
                     if Buraxilis11.objects.filter(is_no=is_no, sinaq_no=sinaq.id):
                         person = Buraxilis11.objects.get(is_no=is_no, sinaq_no=sinaq.id)
                         person.aad = ad
                         person.soyad = soyad
-                        person.tel_no = tel_no
                         person.sinif = sinif
-                        person.bolme = bolme
-                        person.cins = cins
-                        person.variant = variant
-                        person.x_dil = x_dil
-                        person.rayon = rayon
-                        person.mekteb = mekteb
+                        person.kod = kod
+                        person.xarici_dil = x_dil
                         person.f1_q = f1_q
                         person.f2_q = f2_q
                         person.f3_q = f3_q
@@ -231,11 +197,68 @@ class Sinaqlar(models.Model):
                         person.d3_k = d3_k
                         person.save()
                     else:
-                        person = Buraxilis11.objects.create(sinaq_no=sinaq.id, aad=ad, soyad=soyad, is_no=is_no,
-                                                            tel_no=tel_no, sinif=sinif, bolme=bolme, cins=cins,
-                                                            variant=variant, x_dil=x_dil, rayon=rayon, mekteb=mekteb,
+                        person = Buraxilis11.objects.create(sinaq_no=sinaq.id, aad=ad, soyad=soyad, sinif=sinif,
+                                                            is_no=is_no, kod=kod, xarici_dil=x_dil,
                                                             f1_q=f1_q, f2_q=f2_q, f3_q=f3_q, f3_k_a=f3_k_a, d1_q=d1_q,
                                                             d2_q=d2_q, d3_q=d3_q, d3_k=d3_k)
+                        person.save()
+                else:
+                    new_counter = 1
+                    return new_counter
+            elif sinaq.sinaq_nov == 'buraxilis9' and sinaq.counter == 0:
+                all_text = sinaq.sinaq_sagird_cvb.split("\n")
+                all_text = [self.replace_letters(x, self.letter_replacements) for x in all_text]
+                right_answer = sinaq.sinaq_duzgun_cvb
+
+                for row_number in range(len(all_text)):
+                    ad = all_text[row_number][0:12]
+                    soyad = all_text[row_number][13:25]
+                    is_no = all_text[row_number][26:32]
+                    sinif = all_text[row_number][33:34]
+                    x_dil = all_text[row_number][43:44]
+                    kod = all_text[row_number][45:48]
+
+                    f1_q = all_text[row_number][53:79]
+                    f2_q = all_text[row_number][80:106]
+                    f3_q = all_text[row_number][107:122]
+                    f3_k_a = all_text[row_number][123:164]
+
+                    if x_dil == "I":
+                        d1_q = right_answer[0:26]
+                    elif x_dil == "F":
+                        d1_q = right_answer[116:142]
+                    elif x_dil == "A":
+                        d1_q = right_answer[144:170]
+                    elif x_dil == "R":
+                        d1_q = right_answer[172:198]
+                    else:
+                        d1_q = right_answer[0:26]
+
+                    d2_q = right_answer[28:54]
+                    d3_q = right_answer[56:71]
+                    d3_k_a = right_answer[72:113]
+
+                    if Buraxilis9.objects.filter(is_no=is_no, sinaq_no=sinaq.id):
+                        person = Buraxilis9.objects.get(is_no=is_no, sinaq_no=sinaq.id)
+                        person.aad = ad
+                        person.soyad = soyad
+                        person.sinif = sinif
+                        person.xarici_dil = x_dil
+                        person.kod = kod
+                        person.f1_q = f1_q
+                        person.f2_q = f2_q
+                        person.f3_q = f3_q
+                        person.f3_k_a = f3_k_a
+                        person.d1_q = d1_q
+                        person.d2_q = d2_q
+                        person.d3_q = d3_q
+                        person.d3_k_a = d3_k_a
+                        person.save()
+                    else:
+                        person = Buraxilis9.objects.create(sinaq_no=sinaq.id, aad=ad, soyad=soyad, is_no=is_no,
+                                                           sinif=sinif, kod=kod, xarici_dil=x_dil,
+                                                           f1_q=f1_q, f2_q=f2_q, f3_q=f3_q, f3_k_a=f3_k_a, d1_q=d1_q,
+                                                           d2_q=d2_q, d3_q=d3_q, d3_k_a=d3_k_a)
                         person.save()
                 else:
                     new_counter = 1
@@ -287,7 +310,8 @@ class Sinaqlar(models.Model):
                     soyad = all_text[row_number][13:25]
                     is_no = all_text[row_number][42:49]
                     sinif = all_text[row_number][26:27]
-                    if sinif == '1': sinif = '11'
+                    if sinif == '1':
+                        sinif = '11'
                     blok = all_text[row_number][28:29]
                     fenn3 = all_text[row_number][30:31]
 
@@ -374,7 +398,8 @@ class Sinaqlar(models.Model):
                     ata_adi = all_text[row_number][26:38]
                     is_no = all_text[row_number][43:50]
                     sinif = all_text[row_number][56:57]
-                    if sinif == '0': sinif = '10'
+                    if sinif == '0':
+                        sinif = '10'
                     blok = all_text[row_number][58:59]
                     fenn3 = all_text[row_number][60:61]
 
@@ -477,7 +502,6 @@ class Sinaqlar(models.Model):
 
     def save(self, *args, **kwargs):
         self.counter = self.hesabla()
-        self.slug = slugify(self.sinaq_adi)
         return super(Sinaqlar, self).save(*args, **kwargs)
 
     class Meta:
@@ -489,14 +513,9 @@ class Buraxilis11(models.Model):
     aad = models.CharField(max_length=12)
     soyad = models.CharField(max_length=12)
     is_no = models.CharField(max_length=6)
-    tel_no = models.CharField(max_length=10)
     sinif = models.CharField(max_length=2)
-    bolme = models.CharField(max_length=15)
-    cins = models.CharField(choices=(('K', "Kişi"), ('Q', "Qadın")), max_length=10)
-    variant = models.CharField(max_length=1)
-    x_dil = models.CharField(max_length=15)
-    rayon = models.CharField(max_length=3)
-    mekteb = models.CharField(max_length=3)
+    kod = models.CharField(max_length=3)
+    xarici_dil = models.CharField(max_length=1, null=True, blank=True)
     d1_q = models.CharField(max_length=23)  # -----------
     f1_q = models.CharField(max_length=23)
     f1_a4 = models.FloatField(default=0)
@@ -535,28 +554,36 @@ class Buraxilis11(models.Model):
         return f"{self.sinaq_no}"
 
     @property
+    def x_dil(self):
+        return custom_static_func.xarici_dil(self.xarici_dil)
+
+    @property
+    def d1_qq(self):
+        return custom_static_func.part_of_question(self.d1_q, 3)
+
+    @property
+    def d2_qq(self):
+        return custom_static_func.part_of_question(self.d2_q, 15)
+
+    @property
+    def f1_qq(self):
+        return custom_static_func.part_of_question(self.f1_q, 3)
+
+    @property
+    def f2_qq(self):
+        return custom_static_func.part_of_question(self.f2_q, 15)
+
+    @property
     def f1_d_q(self):
-        x = 0
-        for number in range(23):
-            if self.f1_q[number] == self.d1_q[number]:
-                x += 1
-        return x
+        return custom_static_func.qapali_duz(self.f1_q, self.d1_q, 23)
 
     @property
     def f2_d_q(self):
-        x = 0
-        for number in range(20):
-            if self.f2_q[number] == self.d2_q[number]:
-                x += 1
-        return x
+        return custom_static_func.qapali_duz(self.f2_q, self.d2_q, 20)
 
     @property
     def f3_d_q(self):
-        x = 0
-        for number in range(13):
-            if self.f3_q[number] == self.d3_q[number]:
-                x += 1
-        return x
+        return custom_static_func.qapali_duz(self.f3_q, self.d3_q, 13)
 
     @property
     def f1_d_a(self):
@@ -575,12 +602,16 @@ class Buraxilis11(models.Model):
                      1) * 2
 
     @property
+    def f3_k_aa(self):
+        return custom_static_func.convert_to_list(self.f3_k_a)
+
+    @property
+    def d3_k_aa(self):
+        return custom_static_func.convert_to_list(self.d3_k)
+
+    @property
     def f3_d_k(self):
-        x = 0
-        for i in range(0, 30, 6):
-            if self.f3_k_a[i:i + 6] == self.d3_k[i:i + 6]:
-                x += 1
-        return x
+        return custom_static_func.aciq_duz(self.f3_k_aa, self.d3_k_aa)
 
     @property
     def f1_cem(self):
@@ -600,6 +631,123 @@ class Buraxilis11(models.Model):
     def save(self, *args, **kwargs):
         self.cem = self.cem_func()
         return super(Buraxilis11, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-cem']
+
+
+class Buraxilis9(models.Model):
+    sinaq_no = models.CharField(max_length=100)
+    aad = models.CharField(max_length=12)
+    soyad = models.CharField(max_length=12)
+    is_no = models.CharField(max_length=6)
+    sinif = models.CharField(max_length=2)
+    xarici_dil = models.CharField(max_length=1, null=True, blank=True)
+    kod = models.CharField(max_length=3)
+    d1_q = models.CharField(max_length=26)  # -----------
+    f1_q = models.CharField(max_length=26)
+    f1_a6 = models.FloatField(default=0)
+    f1_a28 = models.FloatField(default=0)
+    f1_a29 = models.FloatField(default=0)
+    f1_a30 = models.FloatField(default=0)
+    d2_q = models.CharField(max_length=26)  # ----------------
+    f2_q = models.CharField(max_length=26)
+    f2_a49 = models.FloatField(default=0)
+    f2_a50 = models.FloatField(default=0)
+    f2_a59 = models.FloatField(default=0)
+    f2_a60 = models.FloatField(default=0)
+    d3_q = models.CharField(max_length=15)  # ---------------
+    d3_k_a = models.CharField(max_length=50)
+    f3_q = models.CharField(max_length=15)
+    f3_k_a = models.CharField(max_length=50)
+    f3_a82 = models.FloatField(default=0)
+    f3_a83 = models.FloatField(default=0)
+    f3_a84 = models.FloatField(default=0)
+    f3_a85 = models.FloatField(default=0)
+    cem = models.FloatField()
+
+    def __str__(self):
+        return f"{self.sinaq_no}"
+
+    @property
+    def x_dil(self):
+        return custom_static_func.xarici_dil(self.xarici_dil)
+
+    @property
+    def f1_qq(self):
+        return custom_static_func.part_of_question(self.f1_q, 5)
+
+    @property
+    def f2_qq(self):
+        return custom_static_func.part_of_question(self.f2_q, 18)
+
+    @property
+    def f3_qq(self):
+        return self.f3_q.replace(" ", "&nbsp;")
+
+    @property
+    def d1_qq(self):
+        return custom_static_func.part_of_question(self.d1_q, 5)
+
+    @property
+    def d2_qq(self):
+        return custom_static_func.part_of_question(self.d2_q, 18)
+
+    @property
+    def f1_d_q(self):
+        return custom_static_func.qapali_duz(self.f1_q, self.d1_q, 26)
+
+    @property
+    def f2_d_q(self):
+        return custom_static_func.qapali_duz(self.f2_q, self.d2_q, 26)
+
+    @property
+    def f3_d_q(self):
+        return custom_static_func.qapali_duz(self.f3_q, self.d3_q, 15)
+
+    @property
+    def f1_d_a(self):
+        return round(sum([self.f1_a6, self.f1_a28, self.f1_a29, self.f1_a30]), 1) * 2
+
+    @property
+    def f2_d_a(self):
+        return round(
+            sum([self.f2_a49, self.f2_a50, self.f2_a59, self.f2_a60]), 1) * 2
+
+    @property
+    def f3_d_a(self):
+        return round(sum([self.f3_a82, self.f3_a83, self.f3_a84, self.f3_a85]), 1) * 2
+
+    @property
+    def f3_k_aa(self):
+        return custom_static_func.convert_to_list(self.f3_k_a)
+
+    @property
+    def d3_k_aa(self):
+        return custom_static_func.convert_to_list(self.d3_k_a)
+
+    @property
+    def f3_d_k(self):
+        return custom_static_func.aciq_duz(self.f3_k_aa, self.d3_k_aa)
+
+    @property
+    def f1_cem(self):
+        return round(((100 * sum([self.f1_d_a, self.f1_d_q])) / 34), 2)
+
+    @property
+    def f2_cem(self):
+        return round(((100 * sum([self.f2_d_a, self.f2_d_q])) / 34), 2)
+
+    @property
+    def f3_cem(self):
+        return round((100 * sum([self.f3_d_a, self.f3_d_q, self.f3_d_k])) / 29, 2)
+
+    def cem_func(self):
+        return round(sum([self.f1_cem, self.f2_cem, self.f3_cem]), 2)
+
+    def save(self, *args, **kwargs):
+        self.cem = self.cem_func()
+        return super(Buraxilis9, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['-cem']
@@ -1083,7 +1231,7 @@ class Blok9_10(models.Model):
                 nisbi += 1
             else:
                 continue
-        for i in range(4,7):
+        for i in range(4, 7):
             if f_a[i] == d_a[i] or d_a[i] == '*':
                 duz += 1
                 nisbi += 2
@@ -1140,7 +1288,7 @@ class Blok9_10(models.Model):
     @staticmethod
     def f_cem(qapali_duz, qapali_sehv, aciq_duz, emsal=1.0):
         qapali_nisbi = ((qapali_duz - qapali_sehv * 0.25) * 100) / 33
-        aciq_nisbi = (aciq_duz) * 100 / 33
+        aciq_nisbi = aciq_duz * 100 / 33
         nisbi = qapali_nisbi + aciq_nisbi
         f_cem = nisbi * emsal
         f_cem = round(f_cem, 1)

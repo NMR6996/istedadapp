@@ -1,4 +1,5 @@
 uploads
 db.sqlite3
 webserver.txt
-env
+venv
+.env
