@@ -1,0 +1,24 @@
+name: Deploy to Web Server
+
+on:
+  push:
+    branches:
+      - master  # Change this to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Deploy to Web Server
+      run: |
+        ssh -i /home/istedaduser/id_rsa root@164.92.183.253 "cd /home/istedaduser/istedadsite/istedadapp && git pull origin master && source ../istedadenv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && sudo systemctl daemon-reload && sudo systemctl restart gunicorn && nginx -t && sudo systemctl restart nginx"
