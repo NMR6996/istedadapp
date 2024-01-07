@@ -22,7 +22,7 @@ jobs:
     - name: Deploy to Web Server
       run: |
         ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
-        cd /home/istedaduser/istedadsite/istedadapp
+        pwd
         git checkout master
         git pull
         systemctl daemon-reload
