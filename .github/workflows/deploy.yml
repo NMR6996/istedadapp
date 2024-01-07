@@ -13,12 +13,12 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Install Dependencies
+    - name: instal ssh keys
       run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
 
     - name: Deploy to Web Server
       run: |
-        ssh -i C:\Users\cefer\.ssh\id_rsa root@164.92.183.253 "cd /home/istedaduser/istedadsite/istedadapp && git pull origin master && source ../istedadenv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && sudo systemctl daemon-reload && sudo systemctl restart gunicorn && nginx -t && sudo systemctl restart nginx"
+        ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd /home/istedaduser/istedadsite/istedadapp && git pull origin master && source ../istedadenv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && sudo systemctl daemon-reload && sudo systemctl restart gunicorn && nginx -t && sudo systemctl restart nginx"
