@@ -25,7 +25,8 @@ jobs:
     - name: Deploy to Web Server
       run: |
         ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
-        pwd
+        cd /home/runner/work/istedadapp/
         git checkout master
         git pull
         sudo systemctl daemon-reload
+        sudo systemctl restart gunicorn
