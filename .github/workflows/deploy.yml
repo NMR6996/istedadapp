@@ -24,7 +24,4 @@ jobs:
 
     - name: Deploy to Web Server
       run: |
-        ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
-        git checkout master
-        git pull
-        ls -la
+        ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 'cd /home/istedaduser/istedadsite/istedadapp && git checkout master && git pull && ls -la'
