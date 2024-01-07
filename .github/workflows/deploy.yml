@@ -28,5 +28,5 @@ jobs:
         cd /home/runner/work/istedadapp/istedadapp
         git checkout master
         git pull
+        ls -la
         sudo systemctl daemon-reload
-        sudo systemctl restart gunicorn
