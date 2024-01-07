@@ -30,3 +30,4 @@ jobs:
         git pull
         ls -la
         sudo systemctl daemon-reload
+        systemctl status gunicorn
