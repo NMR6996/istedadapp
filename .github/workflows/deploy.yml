@@ -3,7 +3,7 @@ name: Deploy to Web Server
 on:
   push:
     branches:
-      - master  # Change this to your main branch
+      - master
   pull_request:
     branches:
       - master
@@ -24,4 +24,4 @@ jobs:
 
     - name: Deploy to Web Server
       run: |
-        ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 'cd /home/istedaduser/istedadsite/istedadapp && git checkout master && git pull && source ../istedadenv/bin/activate && pip install -r requirements.txt && python manage.py migrate --no-input && deactivate && systemctl daemon-reload && systemctl restart gunicorn && nginx -t && systemctl restart nginx'
+        ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 'cd /home/istedaduser/istedadsite/istedadapp && git checkout master && git pull && source ../istedadenv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && deactivate && systemctl daemon-reload && systemctl restart gunicorn && nginx -t && systemctl restart nginx'
