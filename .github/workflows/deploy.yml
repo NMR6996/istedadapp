@@ -25,6 +25,7 @@ jobs:
     - name: Deploy to Web Server
       run: |
         ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
+        pwd
         git checkout master
         git pull
         sudo systemctl daemon-reload
