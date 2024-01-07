@@ -26,11 +26,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 'django-insecure-4@2ssm*535j4z_m5h(3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.getenv("DEBUG", False)
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1']
-else:
-    ALLOWED_HOSTS = ['164.92.183.253', 'http://164.92.183.253', 'https://164.92.183.253', 'https://istedad21.edu.az', 'https://www.istedad21.edu.az', 'www.istedad21.edu.az', 'istedad21.edu.az']
+DEBUG = True
+ALLOWED_HOSTS = ['164.92.183.253', 'http://164.92.183.253', 'https://164.92.183.253', 'https://istedad21.edu.az', 'https://www.istedad21.edu.az', 'www.istedad21.edu.az', 'istedad21.edu.az']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.istedad21.edu.az']
 
