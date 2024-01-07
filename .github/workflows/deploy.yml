@@ -22,4 +22,8 @@ jobs:
     - name: Deploy to Web Server
       run: |
         ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
-        "cd /home/istedaduser/istedadsite/istedadapp && git checkout master && git pull && systemctl daemon-reload && systemctl restart gunicorn"
+        cd /home/istedaduser/istedadsite/istedadapp
+        git checkout master
+        git pull
+        systemctl daemon-reload
+        systemctl restart gunicorn
