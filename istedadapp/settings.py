@@ -27,9 +27,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = str(os.getenv('DEBUG'))
+DEBUG = os.getenv('DEBUG')
+
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
-if not DEBUG:
+if DEBUG == "False":
     CSRF_TRUSTED_ORIGINS = ['https://*.istedad21.edu.az']
 
 # Application definition
