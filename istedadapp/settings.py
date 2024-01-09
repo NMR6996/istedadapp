@@ -32,8 +32,7 @@ DEBUG = bool(os.getenv('DEBUG'))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
-if DEBUG is False:
-    CSRF_TRUSTED_ORIGINS = ['https://*.istedad21.edu.az']
+CSRF_TRUSTED_ORIGINS = ['https://*.istedad21.edu.az']
 
 
 # Application definition
